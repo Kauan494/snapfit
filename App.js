@@ -1,20 +1,38 @@
-import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, Text, View } from 'react-native';
+import { NavigationContainer } from "@react-navigation/native";
+import { createNativeStackNavigator } from "@react-navigation/native-stack";
+import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
+import CameraScreen from "./src/screens/CameraScreen";
+import LooksSalvos from "./src/screens/LooksSalvosScreen";
+import CombinacaoCores from "./src/screens/CombinacaoCoresScreen";
+import DetalhePeca from "./src/screens/DetalhePecaScreen";
+import GuardaRoupa from "./src/screens/GuardaRoupaScreen";
+import MontarLook from "./src/screens/MontarLookScreen";
+import CadastrarPeca from "./src/screens/CadastrarPecaScreen";
 
-export default function App() {
+const stack = createNativeStackNavigator();
+const tabs = createBottomTabNavigator();
+
+function Abas() {
   return (
-    <View style={styles.container}>
-      <Text>Open up App.js to start working on your app!</Text>
-      <StatusBar style="auto" />
-    </View>
+    <tabs.Navigator>
+      <tabs.Screen name="GuardaRoupa" component={GuardaRoupa} options={{ title: "Guarda-roupa" }} />
+      <tabs.Screen name="Camera" component={CameraScreen} options={{ title: "Câmera" }} />
+      <tabs.Screen name="MontarLook" component={MontarLook} options={{ title: "Montar look" }} />
+      <tabs.Screen name="LooksSalvos" component={LooksSalvos} options={{ title: "Looks" }} />
+      <tabs.Screen name="CombinacaoCores" component={CombinacaoCores} options={{ title: "Cores" }} />
+    </tabs.Navigator>
   );
 }
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-});
+
+export default function App() {
+  return (
+    <NavigationContainer>
+      <stack.Navigator>
+        <stack.Screen name="Abas" component={Abas} options={{ headerShown: false }} />
+        <stack.Screen name="CadastrarPeca" component={CadastrarPeca} options={{ title: "Cadastrar peça" }} />
+        <stack.Screen name="DetalhePeca" component={DetalhePeca} options={{ title: "Detalhe da peça" }} />
+      </stack.Navigator>
+    </NavigationContainer>
+  );
+}
