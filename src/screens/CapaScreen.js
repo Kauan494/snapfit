@@ -1,7 +1,7 @@
 import React from "react";
 import { View, Text, StyleSheet, TouchableOpacity } from "react-native";
 import { Ionicons } from "@expo/vector-icons";
-import Marca from "../components/Marca";
+import Intro from "../components/Intro";
 
 const RECURSOS = [
   { icone: "camera-outline", texto: "Fotografe suas peças" },
@@ -25,7 +25,7 @@ export default function Capa({ navigation }) {
           </View>
         </View>
 
-        <Marca tamanho={52} clara />
+        <Intro tamanho={52} clara />
         <Text style={estilos.slogan}>
           Fotografe suas roupas.{"\n"}Monte looks que combinam.
         </Text>

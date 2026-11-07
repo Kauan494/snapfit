@@ -1,7 +1,7 @@
 import React from "react";
 import { Text, StyleSheet } from "react-native";
 
-export default function Marca({ tamanho = 22, clara = false }) {
+export default function Intro({ tamanho = 22, clara = false }) {
   return (
     <Text style={[estilos.marca, { fontSize: tamanho, color: clara ? "#fff" : "#222" }]}>
       Snap<Text style={estilos.destaque}>Fit</Text>
