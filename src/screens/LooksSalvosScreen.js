@@ -190,7 +190,5 @@ const estilos = StyleSheet.create({
   textoBotaoPequeno: { color: "#fff", fontWeight: "600" },
   cancelar: { fontSize: 18, color: "#888", paddingHorizontal: 4 },
 
-  vazio: { fontSize: 16, color: "#666", marginBottom: 16 },
-  botao: { backgroundColor: "#222", paddingVertical: 12, paddingHorizontal: 20, borderRadius: 10 },
-  textoBotao: { color: "#fff", fontSize: 15, fontWeight: "600" },
+
 });

@@ -126,7 +126,5 @@ const estilos = StyleSheet.create({
   bolinha: { width: 14, height: 14, borderRadius: 7, borderWidth: 1, borderColor: "#ccc" },
   nome: { flex: 1, fontSize: 14, fontWeight: "500" },
 
-  vazio: { fontSize: 16, color: "#666", marginBottom: 16 },
-  botao: { backgroundColor: "#222", paddingVertical: 12, paddingHorizontal: 20, borderRadius: 10 },
-  textoBotao: { color: "#fff", fontSize: 15, fontWeight: "600" },
+ 
 });
