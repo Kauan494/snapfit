@@ -1,7 +1,7 @@
 import React, { useCallback, useEffect, useRef, useState } from "react";
 import {
   View, Text, StyleSheet, ScrollView, TouchableOpacity, Image,
-  TextInput, Alert, ActivityIndicator,
+  TextInput, Alert, ActivityIndicator, Platform,
 } from "react-native";
 import { useFocusEffect } from "@react-navigation/native";
 import { Accelerometer } from "expo-sensors";
@@ -98,6 +98,8 @@ export default function MontarLook({ route, navigation }) {
   // ACELERÔMETRO: detecta quando o celular é agitado (só com a tela aberta)
   useFocusEffect(
     useCallback(() => {
+      if (Platform.OS === "web") return;
+      
       let ultimaAgitada = 0;
       Accelerometer.setUpdateInterval(150);
 
