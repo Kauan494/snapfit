@@ -3,7 +3,7 @@ import {
   View, Text, StyleSheet, Image, TextInput, TouchableOpacity,
   ScrollView, Alert, ActivityIndicator,
 } from "react-native";
-import { ImageManipulator, SaveFormat } from "expo-image-manipulator";
+import { prepararFoto } from "../utils/imagem";
 import { collection, addDoc, serverTimestamp } from "firebase/firestore";
 import { db } from "../config/firebase";
 import { CORES, TIPOS } from "../data/cores";
@@ -18,17 +18,7 @@ export default function CadastrarPeca({ route, navigation }) {
   const [salvando, setSalvando] = useState(false);
 
   // Diminui a foto e transforma em texto (base64) para caber no Firestore
-  async function prepararFoto() {
-    const contexto = ImageManipulator.manipulate(fotoUri);
-    contexto.resize({ width: 600 });
-    const imagem = await contexto.renderAsync();
-    const resultado = await imagem.saveAsync({
-      compress: 0.5,
-      format: SaveFormat.JPEG,
-      base64: true,
-    });
-    return "data:image/jpeg;base64," + resultado.base64;
-  }
+
 
   async function salvar() {
     
@@ -39,7 +29,7 @@ export default function CadastrarPeca({ route, navigation }) {
 
     setSalvando(true);
     try {
-      const foto = await prepararFoto();
+      const foto = await prepararFoto(fotoUri);
 
      //Cria um documento novo na coleção pecas
       await addDoc(collection(db, "pecas"), {
