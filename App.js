@@ -1,6 +1,7 @@
 import { NavigationContainer } from "@react-navigation/native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
+import { Ionicons } from "@expo/vector-icons";
 import CameraScreen from "./src/screens/CameraScreen";
 import LooksSalvos from "./src/screens/LooksSalvosScreen";
 import CombinacaoCores from "./src/screens/CombinacaoCoresScreen";
@@ -12,11 +13,36 @@ import CadastrarPeca from "./src/screens/CadastrarPecaScreen";
 const stack = createNativeStackNavigator();
 const tabs = createBottomTabNavigator();
 
+const ICONES = {
+  GuardaRoupa: "shirt",
+  Camera: "camera",
+  MontarLook: "sparkles",
+  LooksSalvos: "bookmark",
+  CombinacaoCores: "color-palette",
+};
+
 function Abas() {
   return (
-    <tabs.Navigator>
+    <tabs.Navigator
+      screenOptions={({ route }) => ({
+        tabBarIcon: ({ focused, color, size }) => (
+          <Ionicons
+            name={focused ? ICONES[route.name] : `${ICONES[route.name]}-outline`}
+            size={size}
+            color={color}
+          />
+        ),
+        tabBarActiveTintColor: "#222",
+        tabBarInactiveTintColor: "#999",
+        tabBarLabelStyle: { fontSize: 11, fontWeight: "600" },
+        tabBarStyle: { backgroundColor: "#fff", borderTopColor: "#eee" },
+        headerStyle: { backgroundColor: "#fff" },
+        headerTitleStyle: { fontWeight: "700", fontSize: 18 },
+        headerShadowVisible: false,
+      })}
+    >
       <tabs.Screen name="GuardaRoupa" component={GuardaRoupa} options={{ title: "Guarda-roupa" }} />
-      <tabs.Screen name="Camera" component={CameraScreen} options={{ title: "Câmera" }} />
+      <tabs.Screen name="Camera" component={CameraScreen} options={{ title: "Câmera", headerShown: false }} />
       <tabs.Screen name="MontarLook" component={MontarLook} options={{ title: "Montar look" }} />
       <tabs.Screen name="LooksSalvos" component={LooksSalvos} options={{ title: "Looks" }} />
       <tabs.Screen name="CombinacaoCores" component={CombinacaoCores} options={{ title: "Cores" }} />
@@ -24,11 +50,17 @@ function Abas() {
   );
 }
 
-
 export default function App() {
   return (
     <NavigationContainer>
-      <stack.Navigator>
+      <stack.Navigator
+        screenOptions={{
+          headerTintColor: "#222",
+          headerTitleStyle: { fontWeight: "700" },
+          headerShadowVisible: false,
+          headerBackTitle: "Voltar",
+        }}
+      >
         <stack.Screen name="Abas" component={Abas} options={{ headerShown: false }} />
         <stack.Screen name="CadastrarPeca" component={CadastrarPeca} options={{ title: "Cadastrar peça" }} />
         <stack.Screen name="DetalhePeca" component={DetalhePeca} options={{ title: "Detalhe da peça" }} />

@@ -5,6 +5,7 @@ import {
 import { collection, onSnapshot, orderBy, query } from "firebase/firestore";
 import { db } from "../config/firebase";
 import { CORES, TIPOS } from "../data/cores";
+import EstadoVazio from "../components/EstadoVazio";
 
 export default function GuardaRoupa({ navigation }) {
   const [pecas, setPecas] = useState([]);
@@ -34,7 +35,7 @@ export default function GuardaRoupa({ navigation }) {
   // Aplica o filtro escolhido
   const pecasFiltradas = filtro === "todos" ? pecas : pecas.filter((p) => p.tipo === filtro);
 
-  // Pega o código hex da cor para mostrar a bolinha
+  
   function corHex(idCor) {
     const encontrada = CORES.find((c) => c.id === idCor);
     return encontrada ? encontrada.hex : "#ccc";
@@ -62,7 +63,7 @@ export default function GuardaRoupa({ navigation }) {
 
   return (
     <View style={estilos.container}>
-      {/* Filtros */}
+      
       <View style={estilos.filtros}>
         {[{ id: "todos", nome: "Todos" }, ...TIPOS].map((t) => (
           <TouchableOpacity
@@ -77,14 +78,22 @@ export default function GuardaRoupa({ navigation }) {
         ))}
       </View>
 
-      {/* Lista ou mensagem de vazio */}
       {pecasFiltradas.length === 0 ? (
-        <View style={estilos.centro}>
-          <Text style={estilos.vazio}>Nenhuma peça por aqui ainda.</Text>
-          <TouchableOpacity style={estilos.botao} onPress={() => navigation.navigate("Camera")}>
-            <Text style={estilos.textoBotao}>Fotografar uma peça</Text>
-          </TouchableOpacity>
-        </View>
+        pecas.length === 0 ? (
+          <EstadoVazio
+            icone="shirt-outline"
+            titulo="Seu guarda-roupa está vazio"
+            texto="Fotografe suas roupas para começar a montar looks."
+            textoBotao="Fotografar uma peça"
+            onPress={() => navigation.navigate("Camera")}
+          />
+        ) : (
+          <EstadoVazio
+            icone="filter-outline"
+            titulo="Nenhuma peça desse tipo"
+            texto="Tente outro filtro ou cadastre uma peça nova."
+          />
+        )
       ) : (
         <FlatList
           data={pecasFiltradas}

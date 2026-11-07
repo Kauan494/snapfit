@@ -54,14 +54,20 @@ export default function CameraScreen({navigation}){
         <View style={estilos.areaBotoes}>
           <TouchableOpacity
             style={estilos.botao}
-            onPress={() => navigation.navigate("CadastrarPeca", { fotoUri: foto.uri })}
+            onPress={() => { 
+              setFoto(null);
+              navigation.navigate("CadastrarPeca", { fotoUri: foto.uri })
+            }}
           >
             <Text style={estilos.textoBotao}>Salvar no guarda-roupa</Text>
           </TouchableOpacity>
 
           <TouchableOpacity
             style={[estilos.botao, estilos.botaoSecundario]}
-            onPress={() => navigation.navigate("MontarLook", { fotoUri: foto.uri })}
+            onPress={() => {
+              setFoto(null);
+              navigation.navigate("MontarLook", { fotoUri: foto.uri })
+            }}
           >
             <Text style={estilos.textoBotao}>Usar no look agora</Text>
           </TouchableOpacity>
