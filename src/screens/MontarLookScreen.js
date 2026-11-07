@@ -26,7 +26,7 @@ export default function MontarLook({ route, navigation }) {
   const [nomeLook, setNomeLook] = useState("");
   const [salvando, setSalvando] = useState(false);
 
-  // Cópia das peças numa ref, para o sensor sempre enxergar a lista atual
+  
   const pecasRef = useRef([]);
 
 
@@ -39,7 +39,7 @@ export default function MontarLook({ route, navigation }) {
     return pararDeLer;
   }, []);
 
-  // Recebe a foto enviada pela câmera ("Usar no look agora")
+  
   useEffect(() => {
     const fotoUri = route.params?.fotoUri;
     if (!fotoUri) return;
@@ -62,7 +62,7 @@ export default function MontarLook({ route, navigation }) {
     navigation.setParams({ fotoUri: undefined });
   }, [route.params?.fotoUri]);
 
-  // Sorteia um look em que todas as peças combinam
+  
   function sortearLook() {
     const lista = pecasRef.current;
     const cimas = embaralhar(lista.filter((p) => p.tipo === "cima"));
@@ -95,7 +95,7 @@ export default function MontarLook({ route, navigation }) {
     Alert.alert("Sem combinação", "Não encontrei um look que combine. Cadastre mais peças!");
   }
 
-  // ACELERÔMETRO: detecta quando o celular é agitado (só com a tela aberta)
+  
   useFocusEffect(
     useCallback(() => {
       if (Platform.OS === "web") return;
@@ -107,19 +107,19 @@ export default function MontarLook({ route, navigation }) {
         const forca = Math.sqrt(x * x + y * y + z * z);
         const agora = Date.now();
 
-        // Parado, a força fica perto de 1 (a gravidade). Acima de 1.8 = agitou
+       
         if (forca > 1.8 && agora - ultimaAgitada > 1500) {
           ultimaAgitada = agora;
           sortearLook();
         }
       });
 
-      // Ao sair da tela, desliga o sensor
+      
       return () => assinatura.remove();
     }, [])
   );
 
-  // Escolhe uma peça para um espaço
+  
   function escolherPeca(tipo, peca) {
     setLook((atual) => ({ ...atual, [tipo]: peca }));
     setEspacoAberto(null);
@@ -131,7 +131,7 @@ export default function MontarLook({ route, navigation }) {
     setEspacoAberto(null);
   }
 
-  // CREATE: salva o look na coleção "looks"
+  
   async function salvarLook() {
     if (!look.cima || !look.baixo || !look.calcado) {
       Alert.alert("Look incompleto", "Escolha a parte de cima, a de baixo e o calçado.");
@@ -152,7 +152,7 @@ export default function MontarLook({ route, navigation }) {
           pecaId: peca.temporaria ? null : peca.id,
           nome: peca.nome,
           cor: peca.cor ?? null,
-          // Foto da câmera ainda está grande, então reduz antes de salvar
+          
           foto: peca.temporaria ? await prepararFoto(peca.foto) : peca.foto,
         });
       }
@@ -176,7 +176,7 @@ export default function MontarLook({ route, navigation }) {
     }
   }
 
-  // Aviso se as cores escolhidas combinam
+  
   const pecasEscolhidas = Object.values(look).filter(Boolean);
   const mostrarAviso = pecasEscolhidas.length >= 2;
   const combinaTudo = lookCombina(pecasEscolhidas);
@@ -188,7 +188,7 @@ export default function MontarLook({ route, navigation }) {
       <Text style={estilos.titulo}>Monte seu look</Text>
       <Text style={estilos.subtitulo}>Toque em cada parte para escolher, ou agite o celular para sortear 🎲</Text>
 
-      {/* Os 3 espaços do look */}
+      
       {TIPOS.map((tipo) => {
         const peca = look[tipo.id];
         const aberto = espacoAberto === tipo.id;
@@ -219,7 +219,7 @@ export default function MontarLook({ route, navigation }) {
               )}
             </TouchableOpacity>
 
-            {/* Lista de peças para escolher */}
+            
             {aberto && (
               <View style={estilos.seletor}>
                 {opcoes.length === 0 ? (
@@ -247,7 +247,7 @@ export default function MontarLook({ route, navigation }) {
         );
       })}
 
-      {/* Aviso de combinação */}
+      
       {mostrarAviso && (
         <View style={[estilos.aviso, combinaTudo ? estilos.avisoOk : estilos.avisoAlerta]}>
           <Text style={estilos.textoAviso}>
@@ -256,7 +256,7 @@ export default function MontarLook({ route, navigation }) {
         </View>
       )}
 
-      {/* Ações */}
+      
       <TouchableOpacity style={[estilos.botao, estilos.botaoSecundario]} onPress={sortearLook}>
         <Text style={estilos.textoBotao}>🎲 Sortear look</Text>
       </TouchableOpacity>

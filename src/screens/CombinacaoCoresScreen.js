@@ -10,7 +10,7 @@ export default function CombinacaoCores({ navigation }) {
   const [corSelecionada, setCorSelecionada] = useState(null);
   const [pecas, setPecas] = useState([]);
 
-  // Lê as peças do usuário para mostrar quais combinam
+ 
   useEffect(() => {
     const pararDeLer = onSnapshot(collection(db, "pecas"), (snapshot) => {
       setPecas(snapshot.docs.map((d) => ({ id: d.id, ...d.data() })));
@@ -20,16 +20,16 @@ export default function CombinacaoCores({ navigation }) {
 
   const dadosCor = (id) => CORES.find((c) => c.id === id);
 
-  // Combinações da cor escolhida
+  
   const combinacoes = corSelecionada ? COMBINACOES[corSelecionada] : [];
 
-  // Junta todas as cores que combinam (sem repetir)
+  
   const coresQueCombinam = [...new Set(combinacoes.flatMap((c) => c.cores))];
 
-  // Cores do look: a escolhida + as que combinam com ela
+  
   const coresDoLook = corSelecionada ? [corSelecionada, ...coresQueCombinam] : [];
 
-  // Separa as peças que combinam por tipo (cima, baixo, calçado)
+  
   const pecasPorTipo = TIPOS.map((tipo) => ({
     ...tipo,
     pecas: pecas.filter((p) => p.tipo === tipo.id && coresDoLook.includes(p.cor)),
@@ -42,7 +42,7 @@ export default function CombinacaoCores({ navigation }) {
         Veja com o que ela combina antes de montar o look ou comprar uma peça.
       </Text>
 
-      {/* Paleta */}
+      
       <View style={estilos.paleta}>
         {CORES.map((c) => (
           <TouchableOpacity key={c.id} style={estilos.itemPaleta} onPress={() => setCorSelecionada(c.id)}>
@@ -62,7 +62,7 @@ export default function CombinacaoCores({ navigation }) {
         <Text style={estilos.aviso}>Toque em uma cor para ver as combinações.</Text>
       ) : (
         <>
-          {/* Combinações */}
+          
           <Text style={estilos.secao}>
             Combina com {dadosCor(corSelecionada).nome.toLowerCase()}
           </Text>
@@ -84,7 +84,7 @@ export default function CombinacaoCores({ navigation }) {
             </View>
           ))}
 
-          {/* Peças do usuário que combinam, separadas por tipo */}
+         
           <Text style={estilos.secao}>Do seu guarda-roupa</Text>
 
           {pecasPorTipo.map((grupo) => (

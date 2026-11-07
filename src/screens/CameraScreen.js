@@ -4,16 +4,16 @@ import { CameraView, useCameraPermissions } from "expo-camera";
 import * as Haptics from "expo-haptics";
 
 export default function CameraScreen({navigation}){
-  //Permissão da câmera
+  
   const [permissao,pedirPermissao] = useCameraPermissions();
 
-  //Ref para conseguir fazer a câmera tirar ft
+  
   const cameraRef = useRef(null);
 
-  //Foto tirada
+  
   const [foto,setFoto] = useState(null);
 
-  //Mosra um carregando enqt a ft é processada
+ 
   const [tirando, setTirando] = useState(false);
 
   if(!permissao){
@@ -30,7 +30,7 @@ export default function CameraScreen({navigation}){
       </View>
     );
   }
-    // Tira a foto, vibra e guarda no estado
+    
   async function tirarFoto() {
     if (!cameraRef.current || tirando) return;
     setTirando(true);
@@ -45,7 +45,7 @@ export default function CameraScreen({navigation}){
     }
   }
 
-  // 3) Já tem foto: mostra a prévia e as opções
+  
   if (foto) {
     return (
       <View style={estilos.container}>
@@ -80,7 +80,7 @@ export default function CameraScreen({navigation}){
     );
   }
 
-  // 4) Sem foto: mostra a câmera ao vivo
+  
   return (
     <View style={estilos.container}>
       <CameraView ref={cameraRef} style={estilos.camera} facing="back" />
@@ -100,7 +100,7 @@ const estilos = StyleSheet.create({
   texto: { fontSize: 16, textAlign: "center", marginBottom: 16 },
   camera: { flex: 1 },
 
-  // Botão redondo de tirar foto
+  
   areaCaptura: { position: "absolute", bottom: 32, width: "100%", alignItems: "center" },
   botaoCaptura: {
     width: 76, height: 76, borderRadius: 38,
@@ -108,7 +108,7 @@ const estilos = StyleSheet.create({
   },
   miolo: { width: 60, height: 60, borderRadius: 30, borderWidth: 2, borderColor: "#000" },
 
-  // Prévia da foto
+ 
   previa: { flex: 1, resizeMode: "contain" },
   areaBotoes: { padding: 16, gap: 12, backgroundColor: "#fff" },
   botao: { backgroundColor: "#222", padding: 14, borderRadius: 10, alignItems: "center" },

@@ -17,7 +17,7 @@ export default function LooksSalvos({ navigation }) {
   const [editandoId, setEditandoId] = useState(null);
   const [novoNome, setNovoNome] = useState("");
 
-  // READ
+  
   useEffect(() => {
     const consulta = query(collection(db, "looks"), orderBy("criadoEm", "desc"));
 
@@ -42,7 +42,7 @@ export default function LooksSalvos({ navigation }) {
     setNovoNome(look.nome);
   }
 
-  // UPDATE
+  
   async function salvarNome(id) {
     if (!novoNome.trim()) {
       Alert.alert("Nome vazio", "Digite um nome para o look.");
@@ -57,7 +57,7 @@ export default function LooksSalvos({ navigation }) {
     }
   }
 
-  // DELETE
+  
   function confirmarExclusao(look) {
     Alert.alert("Excluir look", `Tem certeza que quer excluir "${look.nome}"?`, [
       { text: "Cancelar", style: "cancel" },
@@ -76,13 +76,13 @@ export default function LooksSalvos({ navigation }) {
     ]);
   }
 
-  // Card de cada look
+  
   function renderLook({ item }) {
     const editando = editandoId === item.id;
 
     return (
       <View style={estilos.card}>
-        {/* Nome ou campo de edição */}
+        
         {editando ? (
           <View style={estilos.linhaEdicao}>
             <TextInput

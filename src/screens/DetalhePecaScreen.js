@@ -8,7 +8,7 @@ import { db } from "../config/firebase";
 import { CORES, TIPOS } from "../data/cores";
 
 export default function DetalhePeca({ route, navigation }) {
-  // ID da peça que veio da tela Guarda-roupa
+  
   const { id } = route.params;
 
   const [peca, setPeca] = useState(null);
@@ -21,7 +21,7 @@ export default function DetalhePeca({ route, navigation }) {
   const [tipo, setTipo] = useState(null);
   const [cor, setCor] = useState(null);
 
-  // Busca a peça no Firestore pelo ID
+  
   useEffect(() => {
     async function carregar() {
       try {
@@ -46,7 +46,7 @@ export default function DetalhePeca({ route, navigation }) {
     carregar();
   }, [id]);
 
-  //salva as alterações
+  
   async function salvarEdicao() {
     if (!nome.trim() || !tipo || !cor) {
       Alert.alert("Faltou algo", "Preencha o nome, o tipo e a cor da peça.");
@@ -67,7 +67,7 @@ export default function DetalhePeca({ route, navigation }) {
     }
   }
 
-  // Cancela a edição e volta os campos ao que estava salvo
+  
   function cancelarEdicao() {
     setNome(peca.nome);
     setTipo(peca.tipo);
@@ -75,7 +75,7 @@ export default function DetalhePeca({ route, navigation }) {
     setEditando(false);
   }
 
-  // pede confirmação e exclui
+  
   function confirmarExclusao() {
     Alert.alert("Excluir peça", `Tem certeza que quer excluir "${peca.nome}"?`, [
       { text: "Cancelar", style: "cancel" },
@@ -145,7 +145,7 @@ export default function DetalhePeca({ route, navigation }) {
           </TouchableOpacity>
         </>
       ) : (
-        // ===== MODO VISUALIZAÇÃO =====
+        
         <>
           <Text style={estilos.titulo}>{peca.nome}</Text>
 

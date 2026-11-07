@@ -9,16 +9,13 @@ import { db } from "../config/firebase";
 import { CORES, TIPOS } from "../data/cores";
 
 export default function CadastrarPeca({ route, navigation }) {
-  // Foto que veio da tela da câmera
+ 
   const { fotoUri } = route.params;
 
   const [nome, setNome] = useState("");
   const [tipo, setTipo] = useState(null);
   const [cor, setCor] = useState(null);
   const [salvando, setSalvando] = useState(false);
-
-  // Diminui a foto e transforma em texto (base64) para caber no Firestore
-
 
   async function salvar() {
     
@@ -31,7 +28,7 @@ export default function CadastrarPeca({ route, navigation }) {
     try {
       const foto = await prepararFoto(fotoUri);
 
-     //Cria um documento novo na coleção pecas
+     
       await addDoc(collection(db, "pecas"), {
         nome: nome.trim(),
         tipo,
@@ -54,7 +51,6 @@ export default function CadastrarPeca({ route, navigation }) {
     <ScrollView contentContainerStyle={estilos.container}>
       <Image source={{ uri: fotoUri }} style={estilos.foto} />
 
-      {/* Nome */}
       <Text style={estilos.rotulo}>Nome</Text>
       <TextInput
         style={estilos.input}
@@ -63,7 +59,7 @@ export default function CadastrarPeca({ route, navigation }) {
         onChangeText={setNome}
       />
 
-      {/* Tipo */}
+      
       <Text style={estilos.rotulo}>Tipo</Text>
       <View style={estilos.linha}>
         {TIPOS.map((t) => (
@@ -79,7 +75,7 @@ export default function CadastrarPeca({ route, navigation }) {
         ))}
       </View>
 
-      {/* Cor */}
+      
       <Text style={estilos.rotulo}>Cor {cor && `— ${CORES.find((c) => c.id === cor).nome}`}</Text>
       <View style={estilos.paleta}>
         {CORES.map((c) => (
@@ -95,7 +91,7 @@ export default function CadastrarPeca({ route, navigation }) {
         ))}
       </View>
 
-      {/* Salvar */}
+      
       <TouchableOpacity style={estilos.botao} onPress={salvar} disabled={salvando}>
         {salvando ? (
           <ActivityIndicator color="#fff" />

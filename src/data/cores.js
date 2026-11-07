@@ -20,7 +20,7 @@ export const TIPOS = [
   { id: "calcado", nome: "Calçado" },
 ];
 
-// Combinações por cor: cada uma lista as cores que combinam com a cor base
+
 export const COMBINACOES = {
   preto: [
     { cores: ["branco"], estilo: "Clássico", dica: "Contraste máximo, nunca erra." },

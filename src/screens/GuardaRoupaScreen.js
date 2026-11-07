@@ -12,7 +12,7 @@ export default function GuardaRoupa({ navigation }) {
   const [carregando, setCarregando] = useState(true);
   const [filtro, setFiltro] = useState("todos");
 
-   // lê a coleção pecas
+   
   useEffect(() => {
     const consulta = query(collection(db, "pecas"), orderBy("criadoEm", "desc"));
 
@@ -32,7 +32,7 @@ export default function GuardaRoupa({ navigation }) {
     return pararDeLer;
   }, []);
 
-  // Aplica o filtro escolhido
+  
   const pecasFiltradas = filtro === "todos" ? pecas : pecas.filter((p) => p.tipo === filtro);
 
   
@@ -41,7 +41,7 @@ export default function GuardaRoupa({ navigation }) {
     return encontrada ? encontrada.hex : "#ccc";
   }
 
-  // Card de cada peça
+  
   function renderPeca({ item }) {
     return (
       <TouchableOpacity
