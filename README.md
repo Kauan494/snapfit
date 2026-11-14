@@ -139,19 +139,65 @@ O arquivo `src/data/cores.js` define as cores e os grupos de cores que combinam 
 
 ### Passo a passo
 
+Primeiro, clone o repositório:
+
 ```bash
-# 1. Clone o repositório
 git clone https://github.com/Kauan494/snapfit.git
 cd snapfit
-
-# 2. Instale as dependências
-npm install
-
-# 3. Inicie o projeto
-npm start
 ```
 
-Depois, escaneie o QR Code que aparece no terminal com o app **Expo Go** (no iPhone, use a câmera). O celular e o computador precisam estar na mesma rede Wi-Fi.
+Depois, escolha uma das duas opções abaixo para iniciar o app.
+
+#### Opção 1: Execução comum (recomendada)
+
+Para quem está com o celular e o computador na mesma rede Wi-Fi.
+
+1. Instale as dependências:
+
+   ```bash
+   npm install
+   ```
+
+2. Inicie o servidor:
+
+   ```bash
+   npx expo start
+   ```
+
+3. Abra o app **Expo Go** no celular e escaneie o QR Code que aparece no terminal (no iPhone, use a câmera).
+
+**Requisitos:** celular e computador na mesma rede Wi-Fi, sem VPN, e o Node.js liberado no firewall do Windows (com a rede configurada como **Privada**).
+
+#### Opção 2: Execução com login por token (quando a Opção 1 falha)
+
+Use esta opção se aparecerem erros como *"The request timed out"* ou *"You're signed in to Expo Go as ..., but not signed in to Expo CLI"*, ou se o `npx expo login` falhar por não conseguir abrir o navegador.
+
+1. Acesse `expo.dev/settings/access-tokens`, entre na sua conta Expo e crie um **Personal Access Token**.
+2. No PowerShell, defina o token e inicie o projeto em modo túnel:
+
+   ```powershell
+   $env:EXPO_TOKEN="cole_o_token_aqui"
+   npx expo whoami
+   npx expo start --tunnel
+   ```
+
+3. Confira se o `npx expo whoami` mostra o usuário da sua conta Expo.
+4. Escaneie o QR Code com o **Expo Go**, logado na **mesma conta** usada no terminal.
+
+> **Atenção:** nunca faça commit nem compartilhe o seu token. Se ele vazar, revogue o token na mesma página em que ele foi criado e gere outro.
+
+Observações:
+
+- O token vale apenas para o terminal em que foi definido. Para deixá-lo permanente, rode o comando abaixo e abra um novo terminal:
+
+  ```powershell
+  setx EXPO_TOKEN "seu_token"
+  ```
+
+- O modo `--tunnel` pode pedir para instalar o `@expo/ngrok`. Responda `y`.
+- Alternativa sem token: saia da conta no Expo Go (**Settings → Log out**) e use a Opção 1.
+
+#### Outras formas de executar
 
 Também é possível usar:
 
